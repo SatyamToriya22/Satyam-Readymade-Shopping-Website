@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        {% if products=='None' %}
+
+        <div class="section_heading text-center">
+            <h2 style="margin: 140px;">No Product Added</h2>
+        </div>
+
+        {% else %}
+
+        <!-- ****** Cart Area Start ****** -->
+        <div class="cart_area section_padding_100 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set total=[] %}
+                                    
+                                    {% for item in products %}
+                                    <tr>
+                                        <td class="cart_product_img d-flex align-items-center">
+                                            {% set img_path="img/product-img/" + item.img_file %}
+                                            <a href="{{url_for('static',filename=img_path)}}"><img src={{url_for('static',filename=img_path)}} alt="Product"></a>
+                                            <h6>{{item.product_name}}</h6>
+                                            {% set total= total.append(item.price) %}
+                                            
+                                        </td>
+
+                                        <td class="price"><span>Rs.{{item.price}}</span></td>
+                                        <td class="total_price"><span>Rs.{{item.price}}</span></td>
+                                        <td>
+                                            <div class="update-checkout w-50 text-right">
+                                                <a href="/remove/{{item.slug}}">Remove</a>
+                                
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="cart-footer d-flex mt-30">
+                            <div class="back-to-shop w-50">
+                                <a href="/">Continue shooping</a>
+                            </div>
+                            <div class="update-checkout w-50 text-right">
+                                <a href="/remove/clearcart">clear cart</a>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="shipping-method-area mt-70">
+                            <div class="cart-page-heading">
+                                <h5>Shipping method</h5>
+                                <p>Select the one you want</p>
+                            </div>
+
+                            <div class="custom-control custom-radio mb-30">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio2"><span>Standard delivery</span><span>Rs.50</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-total-area mt-70">
+                            <div class="cart-page-heading">
+                                <h5>Cart total</h5>
+                                <p>Final info</p>
+                            </div>
+                            
+                            
+
+                            <ul class="cart-total-chart">
+                                <li><span>Subtotal</span> <span>Rs.{{ total | sum}}</span></li>
+                                <li><span>Shipping</span> {% if total | sum >=599 %} <span>Free</span>{% else %} <span>Rs.50</span> {% endif %} </li>
+                                
+                                <li><span><strong>Total</strong></span> <span><strong>{% if total | sum >=599 %} Rs.{{ total | sum }} {% else %} Rs.{{ total | sum +50 }} {% endif %}</strong></span></li>
+                            </ul>
+                            <a href="/checkout" class="btn karl-checkout-btn">Proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Cart Area End ****** -->
+
+        {% endif %}
+
+{% endblock %}

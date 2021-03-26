@@ -1,0 +1,48 @@
+{% extends 'base.html '%}
+
+{% block content %}
+
+        <!-- ****** Checkout Area Start ****** -->
+        <div class="checkout_area section_padding_100">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-md-6">
+                        <div class="checkout_details_area mt-50 clearfix">
+
+                            <div class="cart-page-heading">
+                                <h5>Contact Us</h5>
+                            </div>
+                           <div class="footer_heading mb-30">
+                                <h6>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</h6>
+                           </div> 
+                            <form action="/contact" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="first_name">Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="first_name" name='name' value="" required>
+                                    </div>
+                                    
+                                    <div class="col-12 mb-4">
+                                        <label for="email_address">Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="email_address" value="" name='email'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="city">Town/City <span>*</span></label>
+                                        <input type="text" class="form-control" id="city" value="" name='city'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="phone_number">Phone No <span>*</span></label>
+                                        <input type="text" class="form-control" id="phone_number"  value="" name='contact'>
+                                    </div> 
+                                </div>
+                                <br><button class="btn karl-checkout-btn"><a  type="submit" >Submit</a></button></br>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ****** Checkout Area End ****** -->
+{% endblock %}

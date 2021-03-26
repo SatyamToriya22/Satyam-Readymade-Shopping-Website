@@ -1,0 +1,151 @@
+{% extends 'base.html '%}
+
+{% block content %}
+
+        <!-- ****** Checkout Area Start ****** -->
+        <div class="checkout_area section_padding_100">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 col-md-6">
+                        <div class="checkout_details_area mt-50 clearfix">
+
+                            <div class="cart-page-heading">
+                                <h5>Billing Address</h5>
+                            </div>
+
+                            <form action="/checkout" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="first_name">First Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="first_name" name='fname' value="" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="last_name">Last Name <span>*</span></label>
+                                        <input type="text" class="form-control" id="last_name" value="" name="lname"namerequired>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <label for="email_address">Email Address <span>*</span></label>
+                                        <input type="email" class="form-control" id="email_address" value="" name='email'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="country">State <span>*</span></label>
+                                        <select class="custom-select d-block w-100" id="country" name='state'>
+                                            <option >Andhra Pradesh</option>
+                                            <option >Arunachal Pradesh</option>
+                                            <option >Assam</option>
+                                            <option >Bihar</option>
+                                            <option >Chhattisgarh</option>
+                                            <option >Goa</option>
+                                            <option >Delhi</option>
+                                            <option >Gujarat</option>
+                                            <option >Haryana</option>
+                                            <option >Himachal Pradesh</option>
+                                            <option >Jammu and Kashmir</option>
+                                            <option >Jharkhand</option>
+                                            <option >Karnataka</option>
+                                            <option >Kerala</option>
+                                            <option >Madhya Pradesh</option>
+                                            <option >Maharashtra</option>
+                                            <option >Manipur</option>
+                                            <option >Meghalaya</option>
+                                            <option >Mizoram</option>
+                                            <option >Nagaland</option>
+                                            <option >Odisha</option>
+                                            <option >Punjab</option>
+                                            <option >Rajasthan</option>
+                                            <option >Sikkim</option>
+                                            <option >Tamil Nadu</option>
+                                            <option >Telangana</option>
+                                            <option >Tripura</option>
+                                            <option >Uttar Pradesh</option>
+                                            <option >Uttarakhand</option>
+                                            <option >West Bengal</option>
+                                        </select>
+                                    </div>
+                            
+                                    <div class="col-12 mb-3">
+                                        <label for="country">Country <span>*</span></label>
+                                        <select class="custom-select d-block w-100" id="country" name='country'>
+                                            <option >India</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="street_address">Address <span>*</span></label>
+                                        <input type="text" class="form-control mb-3" id="street_address"  name='address'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="postcode">Postcode <span>*</span></label>
+                                        <input type="text" class="form-control" id="postcode"  name='postcode'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="city">Town/City <span>*</span></label>
+                                        <input type="text" class="form-control" id="city" value="" name='city'>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="phone_number">Phone No <span>*</span></label>
+                                        <input type="number" class="form-control" id="phone_number" min="0" value="" name='contact'>
+                                    </div>
+                                    {% set prods=[] %}
+
+
+                                    <div class="col-12 mb-3">
+                                        <label for="country">Product <span>*</span></label>
+                                        {% for item in product %}
+                                        {% set prods=prods.append(item.slug) %}
+                                        <ul>
+                                            <li> {{item.product_name}}</li>
+                                        </ul>
+                                        {% endfor %}
+
+                                        <input type=""  class="form-control" value={{ prods|join(',') }} name="product">
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="custom-control custom-checkbox d-block">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2" name='cod'>
+                                            <label class="custom-control-label" for="customCheck2">Cash on Delivery</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox d-block">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1" name='terms'>
+                                            <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox d-block">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck3" name='subscribe'>
+                                            <label class="custom-control-label" for="customCheck3">Subscribe to our newsletter</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><button class="btn karl-checkout-btn"><a  type="submit" >Place Order</a></button></br>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+                        <div class="order-details-confirmation">
+
+                            <div class="cart-page-heading">
+                                <h5>Your Order</h5>
+                                <p>The Details</p>
+                            </div>
+
+                            <ul class="order-details-form mb-4">
+                                {% set total=[] %}
+                                <li><span>Product</span> <span>Total</span></li>
+                                {% for item in product %}
+                                <li><span>{{item.product_name}}</span> <span>{{item.price}}</span></li>
+                                {% set total=total.append(item.price) %}
+                                {% endfor %}
+                                <li><span>Subtotal</span> <span>Rs.{{ total | sum}}</span></li>
+                                <li><span>Shipping</span> <span>Free</span></li>
+                                <li><span><strong>Total</strong></span> <span><strong>{% if total | sum >=599 %} Rs.{{ total | sum }} {% else %} Rs.{{ total | sum +50 }} {% endif %}</strong></span></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ****** Checkout Area End ****** -->
+{% endblock %}

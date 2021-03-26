@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+        <!-- ****** Welcome Slides Area Start ****** -->
+        <section class="welcome_area">
+            <div class="welcome_slides owl-carousel">
+
+                {% for item in slide %}
+                 <!-- Single Slide Start -->
+
+                {% set img_path="img/bg-img/"+ item.img_file %}
+                <div class="single_slide height-800 bg-img background-overlay" style="background-image: url({{url_for('static',filename=img_path)}});">
+                    <div class="container h-100">
+                        <div class="row h-100 align-items-center">
+                            <div class="col-12">
+                                <div class="welcome_slide_text">
+                                    <h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">{{item.small_heading}}</h6>
+                                    <h1 data-animation="bounceInDown" data-delay="0" data-duration="500ms"> {{item.mid_heading}}</h1>
+                                    <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">{{item.heading}}</h2>
+                                    <a href="/womenswear" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </section>
+              
+        <!-- ****** Welcome Slides Area End ****** -->
+
+        <!-- ****** Top Catagory Area Start ****** -->
+        <section class="top_catagory_area d-md-flex clearfix">
+            {% for item in category %}
+            <!-- Single Catagory -->
+            {% set img_path='img/bg-img/'+item.img_file%}
+            <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url({{url_for('static',filename=img_path)}});">
+                <div class="catagory-content">
+                    <h4 style=color:#ddd;>{{item.heading}}</h4>
+                    <h2>{{item.subheading}}</h2>
+                    <a href={{item.slug}} class="btn karl-btn">{{item.button}}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+        <!-- ****** Top Catagory Area End ****** -->
+
+        <!-- ****** New Arrivals Area Start ****** -->
+        <section class="new_arrivals_area section_padding_100_0 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>New Arrivals</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="karl-projects-menu mb-100">
+                <div class="text-center portfolio-menu">
+                    <button class="btn active" data-filter="*">ALL</button>
+                    <button class="btn" data-filter=".women">WOMEN</button>
+                    <button class="btn" data-filter=".men">MEN</button>
+                    <button class="btn" data-filter=".boy">BABY GIRL</button>
+                    <button class="btn" data-filter=".girl">BABY BOY</button>
+                </div>
+            </div>
+
+            
+
+
+
+           
+            <div class="container">
+                <div class="row karl-new-arrivals">
+                     
+                    {% for item in newarrival %}
+
+                    <!-- Single gallery Item Start -->
+                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            {% set img_path="img/product-img/"+ item.img_file %}
+                            <a href={{url_for('static',filename=img_path)}}><img src={{url_for('static',filename=img_path)}}  alt=""></a>                
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <h4 class="product-price">Rs.{{item.price}}</h4>
+                            <p>{{item.product_name}}</p>
+                            <!-- Add to Cart -->
+                            <a {% if session['user'] %}   href= '/cart/{{item.slug}}'   {% else %} href='/login' {% endif %} class="add-to-cart-btn"> ADD TO CART</a>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+            
+        </section>
+        <!-- ****** New Arrivals Area End ****** -->
+
+        <!-- ****** Offer Area Start ****** -->
+        {% for item in offer_area %}
+        {% set img_path='img/bg-img/'+ item.img_file %}
+        <section class="offer_area height-700 section_padding_100 bg-img" style="background-image: url({{url_for('static',filename=img_path)}});">
+            <div class="container h-100">
+                <div class="row h-100 align-items-end justify-content-end">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <div class="offer-content-area wow fadeInUp" data-wow-delay="1s">
+                            <h2>{{item.product_name}}<span class="karl-level">Hot</span></h2>
+                            <p>{{item.description}}</p>
+                            <div class="offer-product-price">
+                                <h3><span class="regular-price">Rs.300</span> Rs.{{item.price}}</h3>
+                            </div>
+                            <a {% if session['user'] %}   href= '/cart/{{item.slug}}'   {% else %} href='/login' {% endif %} class="btn karl-btn mt-30">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endfor %}
+        <!-- ****** Offer Area End ****** -->
+
+        <!-- ****** Popular Brands Area Start ****** -->
+        <section class="karl-testimonials-area section_padding_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>Satyam Readymade Store</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8">
+                        <div class="karl-testimonials-slides owl-carousel">
+
+                            {% for item in testimonial %}
+
+                            <!-- Single Testimonial Area -->
+                            <div class="single-testimonial-area text-center">
+                                <span class="quote">"</span>
+                                <h6>{{item.paragraph}}</h6>
+                                <div class="testimonial-info d-flex align-items-center justify-content-center">
+                                    <div class="tes-thumbnail">
+                                        {% set img_path="img/bg-img/"+item.img_file %}
+                                        <img src={{url_for('static',filename=img_path)}} alt="">
+                                        
+                                    </div>
+                                    <div class="testi-data">
+                                        <p>{{item.owner_name}}</p>
+                                        <span>{{item.owner_position}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- ****** Popular Brands Area End ****** -->
+
+{% endblock %}
